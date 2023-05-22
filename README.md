@@ -33,3 +33,16 @@ The voting application only accepts one vote per client browser. It does not reg
 This isn't an example of a properly architected perfectly designed distributed app... it's just a simple
 example of the various types of pieces and languages you might see (queues, persistent data, etc), and how to
 deal with them in Docker at a basic level.
+
+## kubernetes Deployment     
+
+make sure you have a ready kubernetes cluster and configured `kubectl` to interact with your cluster.  
+your cluster must have a dynamic persistent volume provisioner or you can make pv object yourself.       
+just apply the manifests and you are good to go.     
+
+```
+git clone https://github.com/AlirezaPourchali/kuber_assignment.git      
+cd kuber_assignment
+kubectl apply -f manifests
+```
+the `vote` app will be accessible at http://localhost:30001 and the results can be reached from http://localhost:30002
