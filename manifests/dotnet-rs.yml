@@ -20,6 +20,15 @@ spec:
         image: docker.iranrepo.ir/arpjoker/worker_dotnet
         ports:
         - containerPort: 80
+    ## test if db and redis services are up (there has to be a better way)
+    #  initContainers:
+    #  - name: dbtest
+    #    image: docker.iranrepo.ir/busybox:1.28
+    #    command:
+    #    - nslookup
+    #    - db 
+    #    #- nslookup
+    #    #- redis
 ---
 apiVersion: v1
 kind: Service
