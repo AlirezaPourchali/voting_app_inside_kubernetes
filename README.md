@@ -36,13 +36,22 @@ deal with them in Docker at a basic level.
 
 ## kubernetes Deployment     
 
-make sure you have a ready kubernetes cluster and configured `kubectl` to interact with your cluster.  
-your cluster must have a dynamic persistent volume provisioner or you can make pv object yourself.       
+make sure you have a ready kubernetes cluster and configured `kubectl` to interact with your cluster.      
+your cluster must have a dynamic persistent volume provisioner or you can make pv object yourself.     
+
 just apply the manifests and you are good to go.     
 
 ```
-git clone https://github.com/AlirezaPourchali/kuber_assignment.git      
-cd kuber_assignment
-kubectl apply -f manifests
+git clone https://github.com/AlirezaPourchali/kuber_assignment.git    
+
+cd kuber_assignment     
+
+kubectl apply -f manifests      
 ```
-the `vote` app will be accessible at http://localhost:30001 and the results can be reached from http://localhost:30002
+the `vote` app will be accessible at http://<your_node_ip>:30001 and the results can be reached from http://<<your_node_ip>>:30002
+
+to get the address of your node run 
+
+```
+kubectl get nodes -o wide      
+```
