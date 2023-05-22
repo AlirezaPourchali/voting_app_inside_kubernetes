@@ -38,7 +38,7 @@ cd kuber_assignment
 
 kubectl apply -f manifests      
 ```
-the `vote` app will be accessible at http://<your_node_ip>:30001 and the results can be reached from http://<your_node_ip>:30002
+the `vote` app will be accessible at `http://<your_node_ip>:30001` and the results can be reached from `http://<your_node_ip>:30002`
 
 to get the address of your node run 
 
