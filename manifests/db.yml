@@ -25,6 +25,25 @@ spec:
           value: "postgres"
         ports:
         - containerPort: 5432
+        volumeMounts:
+        - name: mydir
+          mountPath: /healthchecks
+        - name: main
+          mountPath: /var/lib/postgresql/data
+        livenessProbe:
+          exec:
+            command:
+            - /bin/bash
+            - /healthchecks/postgres.sh
+          initialDelaySeconds: 5
+      
+      volumes:
+      - name: mydir
+        configMap:
+          name: health
+      - name: main
+        persistentVolumeClaim:
+          claimName: dbvolume
 
 ---
 apiVersion: v1
