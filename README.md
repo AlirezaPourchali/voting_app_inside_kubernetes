@@ -4,6 +4,8 @@ A simple distributed application running across multiple Docker containers.
 
 i made the manifests to deploy the app inside a kubernetes cluster.      
 
+This solution uses Python, Node.js, .NET, with Redis for messaging and Postgres for storage.     
+
 ## Architecture
 
 ![Architecture diagram](architecture.excalidraw.png)
@@ -36,7 +38,7 @@ cd kuber_assignment
 
 kubectl apply -f manifests      
 ```
-the `vote` app will be accessible at http://<your_node_ip>:30001 and the results can be reached from http://<<your_node_ip>>:30002
+the `vote` app will be accessible at http://<your_node_ip>:30001 and the results can be reached from http://<your_node_ip>:30002
 
 to get the address of your node run 
 
@@ -48,12 +50,19 @@ kubectl get nodes -o wide
 
 Download [Docker Desktop](https://www.docker.com/products/docker-desktop) for Mac or Windows. [Docker Compose](https://docs.docker.com/compose) will be automatically installed. On Linux, make sure you have the latest version of [Compose](https://docs.docker.com/compose/install/).
 
-This solution uses Python, Node.js, .NET, with Redis for messaging and Postgres for storage.
-
 Run in this directory to build and run the app:
 
 ```shell
 docker compose up
+```
+
+ps: you might have a problem with building the worker(dotnet image) , you have to build the image with `buildx` and give the current system architecture and the system you are building it for.     
+
+example:   
+
+```
+docker buildx build --platform=linux/amd64,linux/arm64      
+
 ```
 
 The `vote` app will be running at [http://localhost:5000](http://localhost:5000), and the `results` will be at [http://localhost:5001](http://localhost:5001).
