@@ -21,6 +21,13 @@ spec:
         ports:
         - containerPort: 80
         - containerPort: 5858
+      ## test if db service is up (has problems)
+      #initContainers:
+      #- name: dbtest
+      #  image: docker.iranrepo.ir/busybox:1.28
+      #  command:
+      #  - nslookup
+      #  - db
 
 ---
 apiVersion: v1
@@ -28,14 +35,25 @@ kind: Service
 metadata:
   name: result
 spec:
+  type: NodePort
   selector:
     app: result
   ports:
-    - name: fir
+    - name: expose
       protocol: TCP
       port: 80
-      targetPort: 80
-    - name : sec
+      nodePort: 30002
+    - name : clusterip
       protocol: TCP
       port: 5858
       targetPort: 5858
+#spec:
+#  selector:
+#    app: result
+#  ports:
+#    - name: expose
+#      protocol: TCP
+#      port: 80
+#      nodePort: 30002
+
+
