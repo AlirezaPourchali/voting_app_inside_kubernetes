@@ -29,11 +29,25 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 15
           timeoutSeconds: 5
-
-      initContainers:
-      - name: redis
-        image: docker.iranrepo.ir/busybox:1.28
-        command:
-        - nslookup
-        - redis
+      ## test if redis service is up (has problems)
+      #initContainers:
+      #- name: redistest
+      #  image: docker.iranrepo.ir/busybox:1.28
+      #  command:
+      #  - nslookup
+      #  - redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote
+spec:
+  type: NodePort
+  selector:
+    app: vote
+  ports:
+    - name: access
+      protocol: TCP
+      port: 80
+      nodePort: 30001
 
