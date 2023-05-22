@@ -1,4 +1,4 @@
-FROM node:18-slim
+FROM docker.iranrepo.ir/node:18-slim
 
 # add curl for healthcheck
 RUN apt-get update && apt-get install -y --no-install-recommends \
