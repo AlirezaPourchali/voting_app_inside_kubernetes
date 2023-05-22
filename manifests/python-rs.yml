@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: vote
+  labels:
+    app: vote
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vote
+  template:
+    metadata:
+      labels:
+        app: vote 
+    spec:
+      containers:
+      - name: vote
+        image: arpjoker/python_front
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          exec:
+            command:
+            - curl
+            - -f
+            - http://localhost
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          timeoutSeconds: 5
+
+      initContainers:
+      - name: redis
+        image: docker.iranrepo.ir/busybox:1.28
+        command:
+        - nslookup
+        - redis
+

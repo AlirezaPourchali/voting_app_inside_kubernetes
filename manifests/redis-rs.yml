@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis 
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: docker.iranrepo.ir/redis:alpine
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /healthchecks
+          name: mydir
+      volumes:
+      - name: mydir
+        hostPath:
+          path: /home/guest/Documents/github/kuber_assignment/healthchecks
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  selector:
+    app: redis
+  ports:
+    - name: redis
+      protocol: TCP
+      port: 6379
+      targetPort: 6379
