@@ -21,12 +21,20 @@ spec:
         ports:
         - containerPort: 6379
         volumeMounts:
-        - mountPath: /healthchecks
-          name: mydir
+        - name: mydir
+          mountPath: /healthchecks
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - /healthchecks/redis.sh
+          initialDelaySeconds: 5
+      
+      
       volumes:
       - name: mydir
-        hostPath:
-          path: /home/guest/Documents/github/kuber_assignment/healthchecks
+        configMap:
+          name: health
 ---
 
 apiVersion: v1
