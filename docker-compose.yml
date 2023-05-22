@@ -19,7 +19,7 @@ services:
     volumes:
      - ./vote:/app
     ports:
-      - "0.0.0.0:5000:80"
+      - "0.0.0.0:5001:80"
     networks:
       - front-tier
       - back-tier
@@ -34,25 +34,23 @@ services:
     volumes:
       - ./result:/app
     ports:
-      - "5001:80"
+      - "5002:80"
       - "5858:5858"
     networks:
       - front-tier
       - back-tier
 
   worker:
-    build:
-      context: ./worker
+    image: docker.iranrepo.ir/arpjoker/worker_dotnet
     depends_on:
       redis:
-        condition: service_healthy 
+        condition: service_healthy  
       db:
         condition: service_healthy 
     networks:
       - back-tier
-
   redis:
-    image: redis:alpine
+    image: docker.iranrepo.ir/redis:alpine
     volumes:
       - "./healthchecks:/healthchecks"
     healthcheck:
@@ -62,7 +60,7 @@ services:
       - back-tier
 
   db:
-    image: postgres:15-alpine
+    image: docker.iranrepo.ir/postgres:15-alpine
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
